@@ -77,7 +77,17 @@
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu" />
+    <CudaCompile Include="parallelized.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cuFFT.cu" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sequential.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cuFFT.h" />
+    <ClInclude Include="parallelized.h" />
+    <ClInclude Include="sequential.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
