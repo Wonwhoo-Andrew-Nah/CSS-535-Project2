@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="parallelized.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cuFFT.cu" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sequential.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cuFFT.h" />
+    <ClInclude Include="parallelized.h" />
+    <ClInclude Include="sequential.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FFT.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{31297ae9-9f0c-484d-90c9-cd767ffb109a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\01 A Head Full Of Dreams.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\02 Birds.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\03 Hymn For The Weekend.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\04 Everglow.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\05 Adventure Of A Lifetime.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\06 Fun.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\07 Kaleidoscope.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\08 Army Of One.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\09 Amazing Day.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\10 Colour Spectrum.m4a">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\11 Up&amp;Up.m4a">
+      <Filter>Assets</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,8 +1,3 @@
-#include <complex>
-#include <vector>
-#include <cmath>
-#include <iostream>
-
 // Forward functions here.
 #include "sequential.h"
 #include "parallelized.h"
@@ -11,14 +6,13 @@
 int main() {
 
     std::vector<Complex> data = { 1, 2, 3, 4, 5, 6, 7, 8 };
-	parallelized();
-	cuFFT();
-
-    // Forward FFT
+    std::string musicPath = "Assets/01 A Head Full Of Dreams.m4a";
     sequential_fft(data);
-
-    // Inverse FFT
     sequential_ifft(data);
+
+	parallelized();
+	cuFFT(data);
+    file_cuFFT(musicPath);
 
     // Printing the result
     for (const auto& val : data) {

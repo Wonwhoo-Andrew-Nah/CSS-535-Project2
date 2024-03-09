@@ -87,7 +87,27 @@
   <ItemGroup>
     <ClInclude Include="cuFFT.h" />
     <ClInclude Include="parallelized.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="sequential.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FFT.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\01 A Head Full Of Dreams.m4a">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </None>
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\02 Birds.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\03 Hymn For The Weekend.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\04 Everglow.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\05 Adventure Of A Lifetime.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\06 Fun.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\07 Kaleidoscope.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\08 Army Of One.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\09 Amazing Day.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\10 Colour Spectrum.m4a" />
+    <None Include="..\..\..\Desktop\A Head Full Of Dreams\11 Up&amp;Up.m4a" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
