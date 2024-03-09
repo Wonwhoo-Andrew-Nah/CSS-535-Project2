@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FFT", "FFT\FFT.vcxproj", "{9EBB69A1-595E-4706-8A56-0BDA8F74BC7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EBB69A1-595E-4706-8A56-0BDA8F74BC7B}.Debug|x64.ActiveCfg = Debug|x64
+		{9EBB69A1-595E-4706-8A56-0BDA8F74BC7B}.Debug|x64.Build.0 = Debug|x64
+		{9EBB69A1-595E-4706-8A56-0BDA8F74BC7B}.Release|x64.ActiveCfg = Release|x64
+		{9EBB69A1-595E-4706-8A56-0BDA8F74BC7B}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {81EEF8E2-744F-4D67-9CB1-140D3A9D425D}
+	EndGlobalSection
+EndGlobal
