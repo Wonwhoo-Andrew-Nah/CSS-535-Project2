@@ -1,3 +1,5 @@
+// $ nvcc -o output example.cu -lcufft
+
 #include <stdio.h>
 #include <math.h>
 #include <cuComplex.h>
@@ -58,9 +60,9 @@ int main()
 
         // input data initialization
         for (int i = 0; i < N; ++i){
-                // imaginary
-                h_signal[i].x = i;
                 // real
+                h_signal[i].x = i;
+                // imaginary
                 h_signal[i].y = 0;
         }
 
@@ -88,4 +90,23 @@ int main()
         CUDA_CHECK(cudaFree(d_signal));
 
         return 0;
+
+
+        // unoptimized
+        //(1, 0)
+        //(3.92388, -0.382683)
+        //(7.55487, -1.47247)
+        //(11.5685, -3.48614)
+        //(15.5822, -6.49981)
+        //(19.2132, -10.4374)
+        //(22.1371, -15.082)
+        //(24.1371, -20.1094)
+        //(8.13707, -25.1367)
+        //(2.89828, -26.3372)
+        //(-0.325033, -25.0588)
+        //(-0.737654, -22.2616)
+        //(2.02771, -19.1367)
+        //(7.85455, -16.9252)
+        //(16.1602, -16.7293)
+        //(25.9848, -19.344)
 }
