@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="parallelized.cu" />
+    <CudaCompile Include="parallelized_unoptimized.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cuFFT.cu" />
