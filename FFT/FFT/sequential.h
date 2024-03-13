@@ -2,8 +2,10 @@
 #ifndef SEQUENTIAL_FFT_H
 #define SEQUENTIAL_FFT_H
 
-#include <vector>
 #include <complex>
+#include <vector>
+#include <cmath>
+#include <iostream>
 
 typedef std::complex<double> Complex;
 

@@ -45,10 +45,17 @@ void test_cuFFT() {
 
 int main() {
 
-    // std::vector<Complex> data = { 1, 2, 3, 4, 5, 6, 7, 8 };
-    // std::string musicPath = "Assets/01 A Head Full Of Dreams.m4a";
-    // sequential_fft(data);
-    // sequential_ifft(data);
+     std::vector<Complex> data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+     sequential_fft(data);
+     std::cout << "Sequential" << std::endl;
+     for (auto & val : data) {
+         std::cout << val << std::endl;
+     }
+     data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+     for (auto& val : data) {
+         std::cout << val << std::endl;
+     }
+     sequential_ifft(data);
 
 	// parallelized();
 	// cuFFT(data);
