@@ -4,6 +4,12 @@
 #include "cuFFT.h"
 #include "parallelized_unoptimized.h"
 
+struct Complex {
+    double x, y;
+    Complex() : x(0), y(0) {}
+    Complex(double real, double imaginary) : x(real), y(imaginary) {}
+};
+
 void runCuFFT(Complex* input, int size) {
     cufftHandle plan;
     cufftPlan1d(&plan, size, CUFFT_Z2Z, 1);
@@ -45,17 +51,19 @@ void test_cuFFT() {
 
 int main() {
 
-     std::vector<Complex> data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-     sequential_fft(data);
-     std::cout << "Sequential" << std::endl;
-     for (auto & val : data) {
-         std::cout << val << std::endl;
-     }
-     data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-     for (auto& val : data) {
-         std::cout << val << std::endl;
-     }
-     sequential_ifft(data);
+    const int N = 16;
+    std::vector<Complex> h_data(N);
+
+    for (int i = 0; i < N; ++i) {
+        h_data[i].x = sin(2 * PI * i / N); // real
+        h_data[i].y = 0; // imaginary
+    }
+    sequential_fft(h_data);
+
+    std::cout << "FFT result:" << std::endl;
+    for (int i = 0; i < N; ++i) {
+        std::cout << "(" << h_data[i].x << ", " << h_data[i].y << ")" << std::endl;
+    }
 
 	// parallelized();
 	// cuFFT(data);

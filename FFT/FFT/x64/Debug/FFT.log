@@ -1,2 +1,13 @@
 ﻿  main.cpp
-  FFT.vcxproj -> C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\x64\Debug\FFT.exe
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\cuFFT.h(14,30): error C2371: 'Complex': redefinition; different basic types
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\sequential.h(10,8): message : see declaration of 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\main.cpp(7,16): error C2011: 'Complex': 'struct' type redefinition
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\sequential.h(10,8): message : see declaration of 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\main.cpp(58,17): error C2027: use of undefined type 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\sequential.h(10,8): message : see declaration of 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\main.cpp(59,17): error C2027: use of undefined type 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\sequential.h(10,8): message : see declaration of 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\main.cpp(65,37): error C2027: use of undefined type 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\sequential.h(10,8): message : see declaration of 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\main.cpp(65,60): error C2027: use of undefined type 'Complex'
+C:\Users\Wonwhoo Nah\CSS-535-Project\FFT\FFT\sequential.h(10,8): message : see declaration of 'Complex'

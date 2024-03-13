@@ -7,9 +7,12 @@
 #include <cmath>
 #include <iostream>
 
-typedef std::complex<double> Complex;
+struct Complex {
+    double x, y;
+    Complex() : x(0), y(0) {}
+    Complex(double real, double imaginary) : x(real), y(imaginary) {}
+};
 
 void sequential_fft(std::vector<Complex>& input);
-void sequential_ifft(std::vector<Complex>& input);
 
 #endif
