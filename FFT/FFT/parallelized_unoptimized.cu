@@ -48,6 +48,27 @@ void checkCudaError(cudaError_t error, const char* file, int line) {
 
 int main()
 {       
+
+        // void test_our_fft() {
+	// const int N = 99;
+	// cuDoubleComplex* signal;
+	// cuDoubleComplex* d_signal;
+	// signal = (cuDoubleComplex*)malloc(N * sizeof(cuDoubleComplex));
+	// for (int i = 0; i < N; i++) {
+	// 	signal[i] = make_cuDoubleComplex(sin(2 * PI * i / N), cos(2 * PI * i / N));
+	// }
+	// cudaMalloc(&d_signal, N * sizeof(cuDoubleComplex));
+	// cudaMemcpy(d_signal, signal, N * sizeof(cuDoubleComplex), cudaMemcpyHostToDevice);
+	// perform_fft <<<1, N>>> (d_signal, N);
+	// cudaMemcpy(signal, d_signal, N * sizeof(cuDoubleComplex), cudaMemcpyDeviceToHost);
+	// printf("FFT Results:\n");
+	// for (int i = 0; i < N; i++) {
+	// 	printf("(%f, %f)\n", cuCreal(signal[i]), cuCimag(signal[i]));
+	// }
+	// cudaFree(d_signal);
+	// free(signal);
+
+
         // length of the signal
         const int N = 16;
         const int blockSize = 8;
