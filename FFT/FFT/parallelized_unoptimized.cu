@@ -1,5 +1,12 @@
 #include "parallelized_unoptimized.h"
 
+#include <cuComplex.h>
+#include <stdio.h>
+#include <math.h>
+#include <cuComplex.h>
+#include <cuda_runtime.h>
+#include <device_launch_parameters.h>
+
 #define PI 3.14159265358979323846
 
 __device__ void fft(cuDoubleComplex* signal, int n, int offset, int step) {
@@ -11,8 +18,7 @@ __device__ void fft(cuDoubleComplex* signal, int n, int offset, int step) {
 	fft(signal, n / 2, offset, step * 2);
 	fft(signal, n / 2, offset + step, step * 2);
 
-	for (int i = 0; i < n / 2; i++)
-	{
+	for (int i = 0; i < n / 2; i++) {
 		double angle = -2 * PI * i / n;
 
 		cuDoubleComplex temp;
@@ -33,7 +39,7 @@ __global__ void perform_fft(cuDoubleComplex* signal, int n) {
 }
 
 void test_our_fft() {
-	const int N = 40;
+	const int N = 99;
 	cuDoubleComplex* signal;
 	cuDoubleComplex* d_signal;
 	signal = (cuDoubleComplex*)malloc(N * sizeof(cuDoubleComplex));
@@ -42,7 +48,7 @@ void test_our_fft() {
 	}
 	cudaMalloc(&d_signal, N * sizeof(cuDoubleComplex));
 	cudaMemcpy(d_signal, signal, N * sizeof(cuDoubleComplex), cudaMemcpyHostToDevice);
-	perform_fft << <1, N >> > (d_signal, N);
+	perform_fft <<<1, N>>> (d_signal, N);
 	cudaMemcpy(signal, d_signal, N * sizeof(cuDoubleComplex), cudaMemcpyDeviceToHost);
 	printf("FFT Results:\n");
 	for (int i = 0; i < N; i++) {
