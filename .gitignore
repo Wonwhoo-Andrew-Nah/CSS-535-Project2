@@ -6,3 +6,5 @@
 *.suo
 *.log
 *.vspscc
+FFT/x64/
+FFT/FFT/x64/
