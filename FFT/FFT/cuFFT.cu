@@ -1,101 +1,54 @@
-#pragma comment(lib, "cufft.lib")
-
+#include <stdio.h>
+#include <math.h>
+#include <cuComplex.h>
 #include <iostream>
-#include <vector>
-#include <complex>
-#include <cuda_runtime.h>
 #include <cufft.h>
+#include <cuda_runtime.h>
 
-#include <fstream>
-#include <string>
+#define PI 3.14159265358979323846
 
-typedef std::complex<double> Complex;
-
-__global__ void cuFFT(std::vector<Complex>& input) {
-	
-	// initialize CUDA
-	cudaSetDevice(0);
-
-	// create cuFFT handle
-	cufftHandle plan;
-	cufftPlan1d(&plan, input.size(), CUFFT_Z2Z, 1);
-
-	// host to device
-	Complex* d_data;
-	cudaMalloc((void**)&d_data, sizeof(Complex) * input.size());
-    cudaMemcpy(d_data, input.data(), sizeof(Complex) * input.size(), cudaMemcpyHostToDevice);
-
-    // run FFT
-    cufftExecZ2Z(plan, (cufftDoubleComplex*)d_data, (cufftDoubleComplex*)d_data, CUFFT_FORWARD);
-
-    // device to host
-    std::vector<Complex> result(input.size());
-    cudaMemcpy(result.data(), d_data, sizeof(Complex) * input.size(), cudaMemcpyDeviceToHost);
-
-    // print the result
-    std::cout << "Result of cuFFT:" << std::endl;
-    for (size_t i = 0; i < result.size(); ++i) {
-        std::cout << result[i] << std::endl;
+void checkCudaError(cudaError_t error, const char* file, int line) {
+    if (error != cudaSuccess) {
+        std::cerr << "CUDA error: " << cudaGetErrorString(error) << "at" << file << ":" << line << std::endl;
+        exit(-1);
     }
-
-    // Free memory
-    cudaFree(d_data);
-    cufftDestroy(plan);
 }
 
-// read from file
-std::vector<Complex> readDataFromFile(const std::string& filename) {
-    std::ifstream inputFile(filename, std::ios::binary);
-    if (!inputFile.is_open()) {
-        std::cerr << "Cannot open the file: " << filename << std::endl;
-        exit(EXIT_FAILURE);
+__device__ void fft(cuDoubleComplex* signal, int n, int offset, int step)
+{
+    if (n <= 1) return;
+
+    cuDoubleComplex even = signal[offset];
+    cuDoubleComplex odd = signal[offset + step];
+
+    fft(signal, n / 2, offset, step * 2);
+    fft(signal, n / 2, offset + step, step * 2);
+
+    for (int i = 0; i < n / 2; i++)
+    {
+        double angle = -2 * PI * i / n;
+
+        cuDoubleComplex temp;
+        temp.x = cos(angle) * cuCreal(odd) - sin(angle) * cuCimag(odd);
+        temp.y = cos(angle) * cuCimag(odd) + sin(angle) * cuCreal(odd);
+
+        signal[offset + i] = cuCadd(even, temp);
+        signal[offset + i + n / 2] = cuCsub(even, temp);
+
+        even = signal[offset + i + step];
     }
-
-    // Calculate the file size
-    inputFile.seekg(0, std::ios::end);
-    size_t fileSize = inputFile.tellg();
-    inputFile.seekg(0, std::ios::beg);
-
-    // Make file data
-    std::vector<Complex> data(fileSize / sizeof(Complex));
-
-    // read data from file
-    inputFile.read(reinterpret_cast<char*>(data.data()), fileSize);
-    inputFile.close();
-
-    return data;
 }
 
-__global__ void file_cuFFT(std::string filename) {
+__global__ void perform_fft(cuDoubleComplex* signal, int n)
+{
+    int threadID = blockIdx.x * blockDim.x + threadIdx.x;
 
-    std::vector<Complex> input = readDataFromFile(filename);
+    fft(signal, n, threadID, 1);
+}
 
-    // initialize CUDA
-    cudaSetDevice(0);
+int main() {
+    s
+    int N = 10;
 
-    // create cuFFT handle
-    cufftHandle plan;
-    cufftPlan1d(&plan, input.size(), CUFFT_Z2Z, 1);
-
-    // host to device
-    Complex* d_data;
-    cudaMalloc((void**)&d_data, sizeof(Complex) * input.size());
-    cudaMemcpy(d_data, input.data(), sizeof(Complex) * input.size(), cudaMemcpyHostToDevice);
-
-    // run FFT
-    cufftExecZ2Z(plan, (cufftDoubleComplex*)d_data, (cufftDoubleComplex*)d_data, CUFFT_FORWARD);
-
-    // device to host
-    std::vector<Complex> result(input.size());
-    cudaMemcpy(result.data(), d_data, sizeof(Complex) * input.size(), cudaMemcpyDeviceToHost);
-
-    // print the result
-    std::cout << "Result of cuFFT:" << std::endl;
-    for (size_t i = 0; i < result.size(); ++i) {
-        std::cout << result[i] << std::endl;
-    }
-
-    // Free memory
-    cudaFree(d_data);
-    cufftDestroy(plan);
+    return 0;
 }
