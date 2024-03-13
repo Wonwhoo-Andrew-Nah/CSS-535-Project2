@@ -1,0 +1,10 @@
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.userosscache
+*.suo
+*.log
+*.vspscc
+FFT/x64/
+FFT/FFT/x64/
