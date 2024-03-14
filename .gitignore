@@ -12,3 +12,5 @@ FFT/FFT/.vscode/settings.json
 FFT/FFT/cufft.exe
 FFT/FFT/cuFFT_output.exe
 FFT/FFT/unoptimized_output.exe
+FFT/FFT/sequential.exe
+FFT/FFT/sequential_output.exe
