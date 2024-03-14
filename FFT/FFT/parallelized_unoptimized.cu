@@ -1,6 +1,7 @@
 // $ nvcc -o output example.cu -lcufft
 
 #include <stdio.h>
+#include <vector>
 #include <math.h>
 #include <cuComplex.h>
 #include <iostream>
@@ -46,83 +47,52 @@ void checkCudaError(cudaError_t error, const char* file, int line) {
     }
 }
 
-int main()
-{       
+int main() {
 
-        // void test_our_fft() {
-	// const int N = 99;
-	// cuDoubleComplex* signal;
-	// cuDoubleComplex* d_signal;
-	// signal = (cuDoubleComplex*)malloc(N * sizeof(cuDoubleComplex));
-	// for (int i = 0; i < N; i++) {
-	// 	signal[i] = make_cuDoubleComplex(sin(2 * PI * i / N), cos(2 * PI * i / N));
-	// }
-	// cudaMalloc(&d_signal, N * sizeof(cuDoubleComplex));
-	// cudaMemcpy(d_signal, signal, N * sizeof(cuDoubleComplex), cudaMemcpyHostToDevice);
-	// perform_fft <<<1, N>>> (d_signal, N);
-	// cudaMemcpy(signal, d_signal, N * sizeof(cuDoubleComplex), cudaMemcpyDeviceToHost);
-	// printf("FFT Results:\n");
-	// for (int i = 0; i < N; i++) {
-	// 	printf("(%f, %f)\n", cuCreal(signal[i]), cuCimag(signal[i]));
-	// }
-	// cudaFree(d_signal);
-	// free(signal);
+	CUDA_CHECK(cudaDeviceSetLimit(cudaLimitStackSize, 4 * 1024));
 
+    std::vector<int> input_sizes = { 2<<2, 2<<4, 2<<8, 2<<13 };
+    const int blockSize = 256;
 
-        // length of the signal
-        const int N = 16;
-        const int blockSize = 8;
+    for (int N : input_sizes) {
 
-        // Host memory
-        cuDoubleComplex *h_signal = new cuDoubleComplex[N];
-
-        // input data initialization
-        for (int i = 0; i < N; ++i){
-                h_signal[i].x = sin(2 * PI * i / N); // real
-                h_signal[i].y = 0; // imaginary
+        cuDoubleComplex* h_signal = new cuDoubleComplex[N];
+        for (int i = 0; i < N; ++i) {
+            h_signal[i].x = sin(2 * PI * i / N); // real
+            h_signal[i].y = 0; // imaginary
         }
 
-        // Copy to device
-        cuDoubleComplex *d_signal;
+        cuDoubleComplex* d_signal;
         CUDA_CHECK(cudaMalloc((void**)&d_signal, N * sizeof(cuDoubleComplex)));
         CUDA_CHECK(cudaMemcpy(d_signal, h_signal, N * sizeof(cuDoubleComplex), cudaMemcpyHostToDevice));
-        
-        // call kernel function
-        perform_fft << < (N + blockSize - 1) / blockSize, blockSize >> > (d_signal, N);
-        
-        // Copy to host
-        cuDoubleComplex *h_result = new cuDoubleComplex[N];
-        CUDA_CHECK(cudaMemcpy(h_result, d_signal, N * sizeof(cuDoubleComplex), cudaMemcpyDeviceToHost));
 
-        // check the results
-        std::cout << "unoptimized" << std::endl;
-        for (int i = 0; i< N; ++i){
-                std::cout<< "(" << h_result[i].x << ", " << h_result[i].y << ")" << std::endl;
-        }
+        cudaEvent_t start, stop;
+        CUDA_CHECK(cudaEventCreate(&start));
+        CUDA_CHECK(cudaEventCreate(&stop));
 
-        // deallocate memory
+        cudaEventRecord(start);
+        perform_fft <<<(N + blockSize - 1) / blockSize, blockSize>>> (d_signal, N);
+        cudaEventRecord(stop);
+
+        CUDA_CHECK(cudaEventSynchronize(stop));
+        float milliseconds = 0;
+        CUDA_CHECK(cudaEventElapsedTime(&milliseconds, start, stop));
+
+        std::cout << "Input size: " << N << std::endl;
+        std::cout << "Execution time: " << milliseconds << " ms" << std::endl;
+
+        // cuDoubleComplex *h_result = new cuDoubleComplex[N];
+        // CUDA_CHECK(cudaMemcpy(h_result, d_signal, N * sizeof(cuDoubleComplex), cudaMemcpyDeviceToHost));
+        // for (int i = 0; i< N; ++i) {
+        //     std::cout << "(" << h_result[i].x << ", " << h_result[i].y << ")" << std::endl;
+        // }
+        // delete[] h_result;
+
         delete[] h_signal;
-        delete[] h_result;
         CUDA_CHECK(cudaFree(d_signal));
+        CUDA_CHECK(cudaEventDestroy(start));
+        CUDA_CHECK(cudaEventDestroy(stop));
+    }
 
-        return 0;
-
-
-        // unoptimized
-        // (0.382683, 0)
-        // (1.44334, -0.146447)
-        // (2.55487, -0.541196)
-        // (3.42388, -1.20711)
-        // (3.77164, -2.07193)
-        // (3.39875, -2.97487)
-        // (2.23784, -3.69552)
-        // (0.382683, -4)
-        // (-1.53073, -3.69552)
-        // (-1.03153, -2.82843)
-        // (0.165911, -2.07193)
-        // (1.63099, -1.70711)
-        // (2.84776, -1.84776)
-        // (3.33809, -2.41421)
-        // (2.77904, -3.15432)
-        // (-0.382683, 4)
+    return 0;
 }

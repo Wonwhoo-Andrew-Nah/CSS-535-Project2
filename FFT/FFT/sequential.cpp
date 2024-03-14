@@ -2,6 +2,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <chrono>
 
 #define PI 3.14159265358979323846
 
@@ -38,19 +39,22 @@ void sequential_fft(std::vector<Complex>& input) {
 
 int main() {
 
-    const int N = 16;
-    std::vector<Complex> h_data(N);
+    std::vector<int> input_sizes = { 2<<1, 2<<4, 2<<6, 2<<8, 2<<16, 2<<20 };
 
-    for (int i = 0; i < N; ++i) {
-        h_data[i].x = i; // real
-        h_data[i].y = 0; // imaginary
-    }
+    for (int N : input_sizes) {
+        std::vector<Complex> h_data(N);
+        for (int i = 0; i < N; ++i) {
+            h_data[i] = Complex(i, 0); // Initialize real part with i, imaginary part with 0
+        }
 
-    sequential_fft(h_data);
+        auto start = std::chrono::high_resolution_clock::now();
+        sequential_fft(h_data);
+        auto end = std::chrono::high_resolution_clock::now();
 
-    std::cout << "sequential result:" << std::endl;
-    for (int i = 0; i < N; ++i) {
-        std::cout << "(" << h_data[i].x << ", " << h_data[i].y << ")" << std::endl;
+        std::chrono::duration<double, std::milli> duration = end - start;
+
+        std::cout << "Input size: " << N << std::endl;
+        std::cout << "Execution time: " << duration.count() << " ms" << std::endl;
     }
 
     return 0;
