@@ -68,7 +68,7 @@ int main() {
 
 	CUDA_CHECK(cudaDeviceSetLimit(cudaLimitStackSize, 4 * 1024));
 
-    std::vector<int> input_sizes = { 2<<2, 2<<4, 2<<8, 2<<16 };
+    std::vector<int> input_sizes = { 2<<1, 2<<3, 2<<4, 2<<6, 2<<8, 2<<16, 2<<20 };
     const int blockSize = 256;
 
     for (int N : input_sizes) {

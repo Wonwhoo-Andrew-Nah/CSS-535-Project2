@@ -21,7 +21,7 @@ void checkCudaError(cudaError_t error, const char* file, int line) {
 
 int main() {
     
-    std::vector<int> input_sizes = { 2<<1, 2<<4, 2<<6, 2<<8, 2<<16, 2<<20 };
+    std::vector<int> input_sizes = { 2<<1, 2<<3, 2<<4, 2<<6, 2<<8, 2<<16, 2<<20 };
 
     for (int N : input_sizes) {
         // Host memory

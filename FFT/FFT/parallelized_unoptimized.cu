@@ -51,7 +51,7 @@ int main() {
 
 	CUDA_CHECK(cudaDeviceSetLimit(cudaLimitStackSize, 4 * 1024));
 
-    std::vector<int> input_sizes = { 2<<2, 2<<4, 2<<8, 2<<13 };
+    std::vector<int> input_sizes = { 2<<1, 2<<3, 2<<4, 2<<6, 2<<8, 2<<16, 2<<20 };
     const int blockSize = 256;
 
     for (int N : input_sizes) {
@@ -82,9 +82,9 @@ int main() {
 
         cuDoubleComplex *h_result = new cuDoubleComplex[N];
         CUDA_CHECK(cudaMemcpy(h_result, d_signal, N * sizeof(cuDoubleComplex), cudaMemcpyDeviceToHost));
-        for (int i = 0; i< 4; ++i) {
-            std::cout << "(" << h_result[i].x << ", " << h_result[i].y << ")" << std::endl;
-        }
+        // for (int i = 0; i< 4; ++i) {
+        //     std::cout << "(" << h_result[i].x << ", " << h_result[i].y << ")" << std::endl;
+        // }
 
         delete[] h_result;
         delete[] h_signal;
