@@ -5,6 +5,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cuFFT.cu" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sequential.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -45,5 +47,9 @@
     <None Include="..\..\..\Desktop\A Head Full Of Dreams\11 Up&amp;Up.m4a">
       <Filter>Assets</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="parallelized_unoptimized.h" />
+    <ClInclude Include="sequential.h" />
   </ItemGroup>
 </Project>

@@ -35,3 +35,23 @@ void sequential_fft(std::vector<Complex>& input) {
         input[k + N / 2] = Complex(even[k].x - temp.x, even[k].y - temp.y);
     }
 }
+
+int main() {
+
+    const int N = 16;
+    std::vector<Complex> h_data(N);
+
+    for (int i = 0; i < N; ++i) {
+        h_data[i].x = i; // real
+        h_data[i].y = 0; // imaginary
+    }
+
+    sequential_fft(h_data);
+
+    std::cout << "sequential result:" << std::endl;
+    for (int i = 0; i < N; ++i) {
+        std::cout << "(" << h_data[i].x << ", " << h_data[i].y << ")" << std::endl;
+    }
+
+    return 0;
+}

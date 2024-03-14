@@ -81,6 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cuFFT.cu" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sequential.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Desktop\A Head Full Of Dreams\01 A Head Full Of Dreams.m4a">
@@ -97,6 +99,10 @@
     <None Include="..\..\..\Desktop\A Head Full Of Dreams\09 Amazing Day.m4a" />
     <None Include="..\..\..\Desktop\A Head Full Of Dreams\10 Colour Spectrum.m4a" />
     <None Include="..\..\..\Desktop\A Head Full Of Dreams\11 Up&amp;Up.m4a" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="parallelized_unoptimized.h" />
+    <ClInclude Include="sequential.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
