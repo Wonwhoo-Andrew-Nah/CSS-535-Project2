@@ -48,7 +48,7 @@ __global__ void direct_dft(cuDoubleComplex *in, cuDoubleComplex *out, int n)
 int main()
 {
         // int n = 16;
-        std::vector<int> input_sizes = { 2<<1, 2<<3, 2<<4, 2<<6, 2<<8, 2<<16, 2<<20 };
+        std::vector<int> input_sizes = { 2<<1, 2<<4, 2<<6, 2<<8, 2<<16};
 
         for (int n : input_sizes) {
         

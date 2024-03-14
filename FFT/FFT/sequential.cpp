@@ -39,7 +39,7 @@ void sequential_fft(std::vector<Complex>& input) {
 
 int main() {
 
-    std::vector<int> input_sizes = { 2<<1, 2<<4, 2<<6, 2<<8, 2<<16, 2<<20 };
+    std::vector<int> input_sizes = { 2<<1, 2<<4, 2<<6, 2<<8, 2<<16};
 
     for (int N : input_sizes) {
         std::vector<Complex> h_data(N);
